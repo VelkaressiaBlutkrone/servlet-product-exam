@@ -19,7 +19,6 @@ public class DispatcherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // DBConnection.getConnection();
         String cmd = req.getParameter("cmd");
-        String id = req.getParameter("id");
 
         if ("list".equals(cmd)) {
             String viewName = pc.list(req, resp);
