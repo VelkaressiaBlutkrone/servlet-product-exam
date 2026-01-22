@@ -20,15 +20,18 @@
       <td>name</td>
       <td>action</td>
     </tr>
+    {{#models}}
     <tr>
-      <td>1</td>
-      <td><a href="/product.do?cmd=detail&id=1">바나나</a></td>
+      <td>{{id}}</td>
+      <td><a href="/product.do?cmd=detail&id={{id}}">{{name}}</a></td>
       <td>
-        <form method="post" action="/delete">
+        <form method="post" action="/product.do?cmd=delete" enctype="application/x-www-form-urlencoded">
+          <input type="hidden" name="id" value="{{id}}" />
           <button type="submit">삭제</button>
         </form>
       </td>
     </tr>
+    {{/models}}
   </table>
 </body>
 

@@ -21,6 +21,10 @@ public class ViewResolver {
      * @throws IOException      템플릿 파일을 읽는 중 I/O 오류가 발생한 경우
      */
     public static View render(String viewName) throws ServletException, IOException {
+        // "forward:" 접두사 제거 (예: "forward:list" -> "list")
+        if (viewName != null && viewName.startsWith("forward:")) {
+            viewName = viewName.substring("forward:".length());
+        }
         // 템플릿 파일 경로 생성 (templates/ 디렉토리 내의 .mustache 파일)
         String resourcePath = "templates/" + viewName + ".mustache";
         // 클래스 로더를 통해 리소스 스트림 가져오기

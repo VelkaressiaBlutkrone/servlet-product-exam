@@ -8,9 +8,13 @@
 </head>
 
 <body>
+  <ul>
+    <li><a href="/product.do?cmd=list">상품목록</a></li>
+    <li><a href="/product.do?cmd=insert-form">상품등록</a></li>
+  </ul>
   <h1>상품등록</h1>
   <hr>
-  <form action="#" method="post" enctype="application/x-www-form-urlencoded">
+  <form action="/product.do?cmd=insert" method="post" enctype="application/x-www-form-urlencoded">
     상품명 : <input type="text" name="name" /> <br />
     가격 : <input type="text" name="price" /> <br />
     개수 : <input type="text" name="qty" /> <br />
