@@ -43,7 +43,9 @@ public class DispatcherServlet extends HttpServlet {
             String name = req.getParameter("name");
             int price = Integer.parseInt(req.getParameter("price"));
             int qty = Integer.parseInt(req.getParameter("qty"));
+
             pc.insert(req, resp, name, price, qty);
+
             resp.sendRedirect("product.do?cmd=list");
         } else if ("delete".equals(cmd)) {
             pc.delete(req, resp, Integer.parseInt(id));
