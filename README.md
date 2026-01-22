@@ -71,8 +71,10 @@ servlet-product-exam/
 | Method | URL | 설명 |
 |--------|-----|------|
 | GET | `/product.do?cmd=list` | 상품 목록 조회 |
-| POST | `/product.do?cmd=save` | 상품 등록 폼 |
-| POST | `/product.do?cmd=detail` | 상품 상세 조회 |
+| POST | `/product.do?cmd=save` | 상품 등록 폼 표시 |
+| POST | `/product.do?cmd=detail` | 상품 상세 화면 표시 |
+
+> **참고**: form 태그는 POST, GET 요청만 할 수 있기 때문에, 일부 뷰 조회 요청도 POST 메서드로 처리됩니다.
 
 ## 데이터베이스 설정
 
