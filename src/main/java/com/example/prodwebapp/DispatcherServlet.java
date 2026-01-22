@@ -2,7 +2,6 @@ package com.example.prodwebapp;
 
 import java.io.IOException;
 
-import com.example.prodwebapp.lib.View;
 import com.example.prodwebapp.lib.ViewResolver;
 
 import jakarta.servlet.ServletException;
@@ -17,11 +16,20 @@ public class DispatcherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // DBConnection.getConnection();
         String cmd = req.getParameter("cmd");
+        String id = req.getParameter("id");
 
-        if ("list".equals(cmd)) {
-            View view = ViewResolver.render("list");
-            view.forward(req, resp);
-            return;
+        switch (cmd) {
+            case "list":
+                ViewResolver.render(cmd).forward(req, resp);
+                break;
+            case "insert-form":
+                ViewResolver.render("insert").forward(req, resp);
+                break;
+            case "detail":
+                ViewResolver.render(cmd).forward(req, resp);
+                break;
+            default:
+                break;
         }
     }
 
@@ -29,19 +37,7 @@ public class DispatcherServlet extends HttpServlet {
     // 이유 : form 태그는 post, get 요청만 할 수 있다.
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cmd = req.getParameter("cmd");
 
-        if ("save".equals(cmd)) {
-            View view = ViewResolver.render("save-form");
-            view.forward(req, resp);
-            return;
-        }
-
-        if ("detail".equals(cmd)) {
-            View view = ViewResolver.render("detail");
-            view.forward(req, resp);
-            return;
-        }
     }
 
 }
