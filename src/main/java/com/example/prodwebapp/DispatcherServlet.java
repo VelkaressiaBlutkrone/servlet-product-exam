@@ -23,6 +23,18 @@ public class DispatcherServlet extends HttpServlet {
             return;
         }
 
+        if ("save".equals(cmd)) {
+            View view = ViewResolver.render("save-form");
+            view.forward(req, resp);
+            return;
+        }
+
+        if ("detail".equals(cmd)) {
+            View view = ViewResolver.render("detail");
+            view.forward(req, resp);
+            return;
+        }
+
     }
 
     // delete, post 두 요청을 이 메서드로 받을 예정

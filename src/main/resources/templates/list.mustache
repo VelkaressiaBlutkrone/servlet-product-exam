@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-    <h1>상품 목록</h1>
-    <hr>
-    <table>
-        <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>price</td>
-            <td>qty</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>바나나</td>
-            <td>1000원</td>
-            <td>10개</td>
-        </tr>
-    </table>
+  <ul>
+    <li><a href="/product.do?cmd=list">상품목록</a></li>
+    <li><a href="/product.do?cmd=insert-form">상품등록</a></li>
+  </ul>
+  <h1>상품 목록</h1>
+  <hr>
+  <table border="1">
+    <tr>
+      <td>id</td>
+      <td>name</td>
+      <td>action</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><a href="#">바나나</a></td>
+      <td>
+        <form method="post" action="/delete">
+          <button type="submit">삭제</button>
+        </form>
+      </td>
+    </tr>
+  </table>
 </body>
+
 </html>
