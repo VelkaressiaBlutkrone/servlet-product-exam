@@ -24,7 +24,7 @@ Spring Boot 기반의 간단한 상품 관리 웹 애플리케이션입니다. �
 - Spring DevTools (개발 편의)
 
 ## 📁 프로젝트 구조 (요약)
-
+```
 src/
 ├── main/
 │   ├── java/com/example/prodwebapp/
@@ -46,7 +46,7 @@ src/
 │           ├── detail.mustache             # 상품 상세
 │           └── insert.mustache             # 상품 등록 폼
 └── test/
-
+```
 (전체 파일은 저장소에서 직접 확인하세요.)
 
 ## ✨ 주요 기능
