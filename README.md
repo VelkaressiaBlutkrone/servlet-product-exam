@@ -1,187 +1,126 @@
 # Product Web Application (prodwebapp)
 
-Spring Boot 기반의 상품 관리 웹 애플리케이션입니다. Servlet과 JDBC를 활용하여 상품의 등록, 조회, 삭제 기능을 제공합니다.
+Spring Boot 기반의 간단한 상품 관리 웹 애플리케이션입니다. 전통적인 Servlet과 JDBC를 이용해 상품의 등록, 목록 조회, 상세 조회, 삭제 기능을 제공합니다. Mustache 템플릿 엔진을 사용한 서버사이드 렌더링 방식으로 구성되어 있으며, 학습/실습용으로 설계되었습니다.
 
 ## 📋 프로젝트 개요
 
-이 프로젝트는 Spring Boot 환경에서 전통적인 Servlet과 JDBC를 사용하여 상품 관리 시스템을 구현한 학습 프로젝트입니다. 
-Mustache 템플릿 엔진을 사용하여 서버 사이드 렌더링을 구현하고, MVC 패턴을 기반으로 구조화되어 있습니다.
+이 프로젝트는 Spring Boot 환경에서 Servlet(Front Controller 패턴)과 순수 JDBC를 사용하여 상품 관리 기능을 구현한 예제입니다. MVC 패턴을 수동으로 구성하고, View는 Mustache 템플릿을 사용해 렌더링합니다.
+
+주요 흐름:
+- 모든 요청은 `DispatcherServlet`(서블릿 맵핑: `*.do`)에서 처리
+- 컨트롤러(`ProductController`)가 서비스(`ProductService`)를 호출
+- 서비스는 레포지토리(`ProductRepository`)를 통해 DB에 접근
+- 결과는 Mustache 템플릿으로 렌더링
 
 ## 🛠 기술 스택
 
-### Backend
-- **Java**: 21
-- **Spring Boot**: 4.0.1
-- **Jakarta Servlet**: WebServlet API
-- **JDBC**: MySQL Connector
+- Java 21
+- Spring Boot 4.0.1
+- Jakarta Servlet (annotation-based, `@WebServlet("*.do")`)
+- JDBC (MySQL Connector)
+- Mustache (템플릿 엔진)
+- Gradle 빌드 (toolchain으로 Java 21 설정)
+- Lombok (컴파일 타임, 선택적)
+- Spring DevTools (개발 편의)
 
-### Frontend
-- **Mustache**: 템플릿 엔진
-- **HTML/CSS**: 기본 UI
+## 📁 프로젝트 구조 (요약)
 
-### Database
-- **MySQL**: 상품 데이터 저장
-
-### Build Tool
-- **Gradle**: 프로젝트 빌드 및 의존성 관리
-
-### 기타
-- **Lombok**: 보일러플레이트 코드 감소
-- **Spring DevTools**: 개발 편의성 향상 (자동 재시작, 라이브 리로드)
-
-## 📁 프로젝트 구조
-
-```
 src/
 ├── main/
 │   ├── java/com/example/prodwebapp/
-│   │   ├── ProdwebappApplication.java       # Spring Boot 메인 애플리케이션
-│   │   ├── DispatcherServlet.java          # Front Controller (*.do 요청 처리)
-│   │   ├── DBConnection.java               # 데이터베이스 연결 관리
+│   │   ├── ProdwebappApplication.java       # Spring Boot 메인
+│   │   ├── DispatcherServlet.java          # Front Controller (*.do)
+│   │   ├── DBConnection.java               # JDBC 연결 관리 (현재 하드코딩된 설정)
 │   │   ├── lib/
-│   │   │   ├── View.java                   # Mustache 템플릿 렌더링
-│   │   │   └── ViewResolver.java           # 뷰 이름을 템플릿으로 변환
+│   │   │   ├── View.java                   # Mustache 렌더링 헬퍼 (뷰 관련 유틸)
+│   │   │   └── ViewResolver.java           # viewName -> template 변환 및 forward 처리
 │   │   └── product/
-│   │       ├── Product.java                # 상품 엔티티 (모델)
-│   │       ├── ProductController.java      # 상품 컨트롤러
-│   │       ├── ProductService.java         # 상품 비즈니스 로직
-│   │       └── ProductRepository.java      # 상품 데이터 액세스 계층
+│   │       ├── Product.java                # 상품 모델
+│   │       ├── ProductController.java      # 컨트롤러
+│   │       ├── ProductService.java         # 비즈니스 로직/트랜잭션 경계(단순)
+│   │       └── ProductRepository.java      # JDBC 기반 데이터 액세스
 │   └── resources/
-│       ├── application.properties          # 애플리케이션 설정
+│       ├── application.properties          # (선택) Spring 설정
 │       └── templates/                      # Mustache 템플릿
-│           ├── list.mustache               # 상품 목록 페이지
-│           ├── detail.mustache             # 상품 상세 페이지
-│           └── insert.mustache             # 상품 등록 페이지
+│           ├── list.mustache               # 상품 목록
+│           ├── detail.mustache             # 상품 상세
+│           └── insert.mustache             # 상품 등록 폼
 └── test/
-```
+
+(전체 파일은 저장소에서 직접 확인하세요.)
 
 ## ✨ 주요 기능
 
-### 1. 상품 목록 조회
-- 등록된 모든 상품을 테이블 형태로 표시
-- 상품명 클릭 시 상세 정보로 이동
-- 각 상품별 삭제 기능 제공
+- 상품 등록 (폼을 통해 POST)
+- 상품 목록 조회 (테이블)
+- 상품 상세 조회
+- 상품 삭제 (POST 요청으로 처리)
+- View는 Mustache 템플릿으로 렌더링
+- 요청 경로: `*.do` (예: `/product.do?cmd=list`)
 
-### 2. 상품 상세 조회
-- 선택한 상품의 상세 정보 표시
-  - ID, 상품명, 가격, 수량
+템플릿 파일은 `src/main/resources/templates/` 안에 있으며, `DispatcherServlet`과 `ViewResolver`를 통해 forward 방식으로 렌더링됩니다.
 
-### 3. 상품 등록
-- 새로운 상품 추가
-- 입력 항목: 상품명, 가격, 수량
+## 데이터베이스 설정
 
-### 4. 상품 삭제
-- 상품 목록에서 직접 삭제 가능
+현재 `DBConnection.getConnection()` 메서드에 기본값이 하드코딩되어 있습니다:
 
-## 🚀 설치 및 실행 방법
+- URL: `jdbc:mysql://localhost:3306/productdb`
+- 사용자: `root`
+- 비밀번호: (코드 내 설정)
 
-### 사전 요구사항
-- Java 21 이상
-- MySQL 데이터베이스
-- Gradle
+(실제 비밀번호는 코드에서 확인하거나, 보안상 변경하길 권장합니다.)
 
-### 데이터베이스 설정
+로컬 MySQL에 다음과 같이 DB/테이블을 준비하면 됩니다:
 
-1. MySQL에서 데이터베이스 생성:
 ```sql
-CREATE DATABASE productdb;
+CREATE DATABASE productdb CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE productdb;
-```
 
-2. 상품 테이블 생성:
-```sql
 CREATE TABLE product (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    price INT NOT NULL,
-    qty INT NOT NULL
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price INT NOT NULL,
+  qty INT NOT NULL
 );
 ```
 
-3. `DBConnection.java` 파일에서 데이터베이스 연결 정보 수정:
-```java
-String url = "jdbc:mysql://localhost:3306/productdb";
-String username = "root";
-String password = "your_password";  // 본인의 MySQL 비밀번호로 변경
-```
+주의:
+- 실제 운영/협업 환경에서는 DB 접속 정보를 소스 코드에 하드코딩하지 마세요. 대신 `application.properties`나 환경 변수, 또는 Spring의 DataSource 구성을 사용하세요.
+- README에서 DB 비밀번호를 그대로 노출하지 않도록 주의하세요.
 
-### 애플리케이션 실행
+## 빌드 및 실행 방법
 
-1. 프로젝트 클론:
-```bash
-git clone https://github.com/VelkaressiaBlutkrone/servlet-product-exam.git
-cd servlet-product-exam
-```
+프로젝트 루트에서 Gradle wrapper 사용을 권장합니다.
 
-2. Gradle 빌드:
-```bash
-./gradlew build
-```
+1. 빌드 및 실행 (개발용)
+   - Linux / macOS:
+     - ./gradlew bootRun
+   - Windows:
+     - gradlew.bat bootRun
 
-3. 애플리케이션 실행:
-```bash
-./gradlew bootRun
-```
+2. 또는 jar 생성 후 실행
+   - ./gradlew bootJar
+   - java -jar build/libs/prodwebapp-0.0.1-SNAPSHOT.jar
 
-4. 브라우저에서 접속:
-```
-http://localhost:8080/product.do?cmd=list
-```
+애플리케이션 기본 포트는 8080입니다. (application.properties로 변경 가능)
 
-## 🔗 API 엔드포인트
+## 코드에서 확인할 부분 / 개선 제안
 
-### GET 요청
+- DBConnection: 현재 하드코딩된 DB 연결을 application.properties 또는 Spring DataSource로 대체 권장
+- 예외 처리: 현재 예외는 RuntimeException을 던지는 식으로 단순 처리되어 있음. 사용자 친화적인 에러 페이지, 로깅, 예외 매핑 개선 권장
+- 트랜잭션 관리: 현재는 단순 JDBC 호출만 사용. 트랜잭션이 필요한 경우 수동으로 처리하거나 Spring의 트랜잭션 매니저 사용 고려
+- 보안: CSRF, 인증/권한이 없음 — 학습용으로는 무방하지만 실제 서비스에는 추가 필요
+- 테스트: 단위/통합 테스트 추가 권장
 
-| URL | 설명 |
-|-----|------|
-| `/product.do?cmd=list` | 상품 목록 조회 |
-| `/product.do?cmd=detail&id={id}` | 상품 상세 조회 |
-| `/product.do?cmd=insert-form` | 상품 등록 폼 |
+## 개발 및 기여 안내
 
-### POST 요청
+- 프로젝트는 학습용 예제입니다. 기능 추가나 개선을 원하시면 PR을 보내주세요.
+- 커밋 스타일/브랜치 정책은 팀 규칙에 따르세요.
 
-| URL | 파라미터 | 설명 |
-|-----|----------|------|
-| `/product.do?cmd=insert` | name, price, qty | 상품 등록 |
-| `/product.do?cmd=delete` | id | 상품 삭제 |
+## 라이선스
 
-## 🏗 아키텍처 패턴
+원하시는 라이선스(예: MIT)를 명시해 주세요. 지정되어 있지 않다면 기본적으로 명시가 필요합니다.
 
-### MVC 패턴
-- **Model**: `Product.java` - 상품 데이터 구조
-- **View**: Mustache 템플릿 파일 (`.mustache`)
-- **Controller**: `ProductController.java` - 요청 처리 및 응답
+---
 
-### 계층 구조
-1. **Presentation Layer** (DispatcherServlet)
-   - Front Controller 패턴
-   - 모든 `*.do` 요청을 처리
-
-2. **Business Layer** (ProductService)
-   - 트랜잭션 관리
-   - 비즈니스 로직 검증
-
-3. **Data Access Layer** (ProductRepository)
-   - JDBC를 통한 데이터베이스 접근
-   - CRUD 작업 수행
-
-## 📝 특징
-
-- **커스텀 MVC 프레임워크**: Spring MVC 대신 Servlet 기반 커스텀 구현
-- **ViewResolver**: Mustache 템플릿을 동적으로 로드하고 렌더링
-- **Front Controller 패턴**: 단일 진입점을 통한 요청 처리
-- **예외 처리**: Service 계층에서 비즈니스 로직 검증 및 예외 발생
-- **UTF-8 인코딩**: 한글 지원을 위한 완전한 인코딩 설정
-
-## ⚙️ 개발 설정
-
-`application.properties`에 다음과 같은 개발 편의 기능이 설정되어 있습니다:
-
-- **DevTools**: 파일 변경 시 자동 재시작
-- **Live Reload**: 브라우저 자동 새로고침
-- **Error Handling**: 상세한 에러 메시지 표시
-- **SQL Logging**: 실행되는 SQL 쿼리 로그 출력
-
-## 📄 라이선스
-
-이 프로젝트는 학습 목적으로 작성되었습니다.
+참고: 제가 저장소의 주요 파일(서블릿, 서비스, 레포지토리, 템플릿, 빌드 스크립트 등)을 확인하여 README 내용을 작성했습니다. 코드 검색 결과는 제한될 수 있으므로 전체 파일을 직접 확인하려면 저장소를 열어 보시기 바랍니다: https://github.com/VelkaressiaBlutkrone/servlet-product-exam
