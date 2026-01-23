@@ -122,5 +122,3 @@ CREATE TABLE product (
 이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
 
 ---
-
-참고: 제가 저장소의 주요 파일(서블릿, 서비스, 레포지토리, 템플릿, 빌드 스크립트 등)을 확인하여 README 내용을 작성했습니다. 코드 검색 결과는 제한될 수 있으므로 전체 파일을 직접 확인하려면 저장소를 열어 보시기 바랍니다: https://github.com/VelkaressiaBlutkrone/servlet-product-exam
