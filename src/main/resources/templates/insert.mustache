@@ -5,6 +5,103 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px auto;
+      max-width: 900px;
+      color: #333;
+      padding: 20px 60px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #009879;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #009879;
+      margin: 20px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: right;
+    }
+
+    li {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    li a {
+      text-decoration: none;
+      color: #009879;
+      font-weight: bold;
+      padding: 8px 16px;
+      border: 2px solid #009879;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    li a:hover {
+      background-color: #009879;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    table th {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: center;
+      width: 20%;
+    }
+
+    table th,
+    table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    table tr:last-of-type {
+      border-bottom: 2px solid #009879;
+    }
+
+    input[type="text"] {
+      width: 95%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #009879;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      background-color: #007f65;
+    }
+  </style>
 </head>
 
 <body>
@@ -15,9 +112,20 @@
   <h1>상품등록</h1>
   <hr>
   <form action="/product.do?cmd=insert" method="post" enctype="application/x-www-form-urlencoded">
-    상품명 : <input type="text" name="name" /> <br />
-    가격 : <input type="text" name="price" /> <br />
-    개수 : <input type="text" name="qty" /> <br />
+    <table>
+      <tr>
+        <th>상품명</th>
+        <td><input type="text" name="name" required /></td>
+      </tr>
+      <tr>
+        <th>가격</th>
+        <td><input type="text" name="price" required /></td>
+      </tr>
+      <tr>
+        <th>개수</th>
+        <td><input type="text" name="qty" required /></td>
+      </tr>
+    </table>
     <button type="submit">상품등록</button>
   </form>
 </body>

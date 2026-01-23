@@ -6,9 +6,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    div {
-      border: 1px solid black;
-      padding: 10px;
+    body {
+      font-family: sans-serif;
+      margin: 40px auto;
+      max-width: 900px;
+      color: #333;
+      padding: 20px 60px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #009879;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #009879;
+      margin: 20px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: right;
+    }
+
+    li {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    li a {
+      text-decoration: none;
+      color: #009879;
+      font-weight: bold;
+      padding: 8px 16px;
+      border: 2px solid #009879;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    li a:hover {
+      background-color: #009879;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    table th {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: center;
+      width: 20%;
+    }
+
+    table th,
+    table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    table tr:last-of-type {
+      border-bottom: 2px solid #009879;
     }
   </style>
 </head>
@@ -20,12 +88,24 @@
   </ul>
   <h1>상품 상세보기</h1>
   <hr>
-  <div>
-    <div>id: {{model.id}}</div>
-    <div>name: {{model.name}}</div>
-    <div>price: {{model.price}}원</div>
-    <div>qty: {{model.qty}}개</div>
-  </div>
+  <table>
+    <tr>
+      <th>id</th>
+      <td>{{model.id}}</td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td>{{model.name}}</td>
+    </tr>
+    <tr>
+      <th>price</th>
+      <td>{{model.price}}원</td>
+    </tr>
+    <tr>
+      <th>qty</th>
+      <td>{{model.qty}}개</td>
+    </tr>
+  </table>
 </body>
 
 </html>

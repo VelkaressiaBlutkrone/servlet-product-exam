@@ -5,6 +5,115 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px auto;
+      max-width: 900px;
+      color: #333;
+      padding: 20px 60px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #009879;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #009879;
+      margin: 20px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      text-align: right;
+    }
+
+    li {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    li a {
+      text-decoration: none;
+      color: #009879;
+      font-weight: bold;
+      padding: 8px 16px;
+      border: 2px solid #009879;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    li a:hover {
+      background-color: #009879;
+      color: white;
+    }
+
+    button {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ee5253;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    table tr:first-child {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    table th,
+    table td {
+      padding: 12px 15px;
+    }
+
+    table th {
+      text-align: center;
+    }
+
+    table tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    table tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    table tr:last-of-type {
+      border-bottom: 2px solid #009879;
+    }
+
+    table tr td:first-child {
+      width: 20%;
+      text-align: center;
+    }
+
+    table tr td.action {
+      text-align: center;
+      padding-left: 20px;
+      width: 100px;
+    }
+  </style>
 </head>
 
 <body>
@@ -16,15 +125,15 @@
   <hr>
   <table border="1">
     <tr>
-      <td>id</td>
-      <td>name</td>
-      <td>action</td>
+      <th>id</th>
+      <th>name</th>
+      <th class="action">action</th>
     </tr>
     {{#models}}
     <tr>
       <td>{{id}}</td>
       <td><a href="/product.do?cmd=detail&id={{id}}">{{name}}</a></td>
-      <td>
+      <td class="action">
         <form method="post" action="/product.do?cmd=delete" enctype="application/x-www-form-urlencoded">
           <input type="hidden" name="id" value="{{id}}" />
           <button type="submit">삭제</button>
